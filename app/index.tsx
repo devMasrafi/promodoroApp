@@ -3,7 +3,15 @@ import { Text, View } from "react-native";
 import SplashScreen from "../components/splashScreen";
 import Todo from "../components/todo";
 
-export default function Index() {
+export function getServerSideProps() {
+  return {
+    options: {
+      headerShown: false,
+    },
+  };
+}
+
+export default function index() {
   const [isSplashScreenLoading, setIsSplashScreenLoading] =
     useState<boolean>(true);
 
