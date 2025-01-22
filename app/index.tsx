@@ -30,7 +30,7 @@ export default function index() {
   }
 
   return (
-    <View className="p-2">
+    <View className="">
       <View className="flex justify-between h-full w-full">
         <View>
           <Todo />
