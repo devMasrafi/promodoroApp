@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
-import SplashScreen from "../components/splashScreen";
 import Todo from "../components/todo";
 
 export function getServerSideProps() {
@@ -12,31 +11,12 @@ export function getServerSideProps() {
 }
 
 export default function index() {
-  const [isSplashScreenLoading, setIsSplashScreenLoading] =
-    useState<boolean>(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsSplashScreenLoading(false);
-    }, 2000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
-
-  if (isSplashScreenLoading) {
-    return <SplashScreen />;
-  }
 
   return (
     <View className="">
       <View className="flex justify-between h-full w-full">
         <View>
           <Todo />
-        </View>
-        <View>
-          <Text>promodoro</Text>
         </View>
       </View>
     </View>
