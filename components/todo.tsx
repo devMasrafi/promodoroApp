@@ -37,8 +37,12 @@ const Todo = () => {
     setOpenModal(!openModal);
   };
 
-  const handleAccordionOpen = () => {
-    setOpenAccordion(!openAccordion);
+  const [expandedTodoAcordion, setExpandedTodoAcordion] = React.useState<
+    string | null
+  >(null);
+
+  const handleAccordionOpen = (id: string) => {
+    setExpandedTodoAcordion(expandedTodoAcordion === id ? null : id);
   };
 
   const handleAddTodo = () => {
@@ -74,11 +78,11 @@ const Todo = () => {
           {todos.map((todo) => (
             <TouchableOpacity
               key={todo.id}
-              onPress={handleAccordionOpen}
-              className="border border-2-gray/50 px-3 py-3 rounded-md"
+              onPress={() => handleAccordionOpen(todo.id)}
+              className="border border-2-gray/50 px-3 py-3 rounded-md mb-2"
             >
               <Text className="text-xl">{todo.title}</Text>
-              {openAccordion && (
+              {expandedTodoAcordion === todo.id && (
                 <Text className="text-sm">{todo.description}</Text>
               )}
             </TouchableOpacity>
@@ -90,40 +94,40 @@ const Todo = () => {
       {openModal && (
         <TouchableWithoutFeedback onPress={handleModalOpen}>
           <View className="absolute top-0 left-0 inset-0 bg-black/30 flex items-center justify-center">
-          <View className="bg-white h-[17rem] w-[25rem] rounded-lg shadow-lg">
-            <View className="p-4">
-              <TextInput
-                placeholder="Title"
-                value={todoInput.title}
-                onChangeText={(text) => handleTodoForm("title", text)}
-                className="border border-2 border-gray-300 px-2 py-1 rounded-lg mb-4"
-              />
-              <TextInput
-                placeholder="Description"
-                value={todoInput.description}
-                onChangeText={(text) => handleTodoForm("description", text)}
-                multiline={true}
-                numberOfLines={4}
-                textAlignVertical="top"
-                className="border border-2 h-[8rem] border-gray-300 px-2 py-1 rounded-lg mb-4"
-              />
-              <View className="flex flex-row justify-between">
-                <TouchableOpacity
-                  className="px-6 py-2 bg-gray-300 w-[45%] rounded-md"
-                  onPress={() => setTodoInput({ title: "", description: "" })}
-                >
-                  <Text className="text-center capitalize">clear</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  className="px-6 py-2 bg-gray-300 w-[45%] rounded-md"
-                  onPress={handleAddTodo}
-                >
-                  <Text className="text-center capitalize">add todo</Text>
-                </TouchableOpacity>
+            <View className="bg-white h-[17rem] w-[25rem] rounded-lg shadow-lg">
+              <View className="p-4">
+                <TextInput
+                  placeholder="Title"
+                  value={todoInput.title}
+                  onChangeText={(text) => handleTodoForm("title", text)}
+                  className="border border-2 border-gray-300 px-2 py-1 rounded-lg mb-4"
+                />
+                <TextInput
+                  placeholder="Description"
+                  value={todoInput.description}
+                  onChangeText={(text) => handleTodoForm("description", text)}
+                  multiline={true}
+                  numberOfLines={4}
+                  textAlignVertical="top"
+                  className="border border-2 h-[8rem] border-gray-300 px-2 py-1 rounded-lg mb-4"
+                />
+                <View className="flex flex-row justify-between">
+                  <TouchableOpacity
+                    className="px-6 py-2 bg-gray-300 w-[45%] rounded-md"
+                    onPress={() => setTodoInput({ title: "", description: "" })}
+                  >
+                    <Text className="text-center capitalize">clear</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    className="px-6 py-2 bg-gray-300 w-[45%] rounded-md"
+                    onPress={handleAddTodo}
+                  >
+                    <Text className="text-center capitalize">add todo</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>
-        </View>
         </TouchableWithoutFeedback>
       )}
     </View>
